@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<person xmlns="http://www.trustverse.ru" xmlns:tl="http://www.trustverse.ru/typelibrary" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.trustverse.ru test.xsd">
+    <tl:firstname>s-x9 sd</tl:firstname>
+    <tl:lastname>sdfsd</tl:lastname>
+    <tl:address>
+        <tl:street>sdfsd</tl:street>
+        <tl:city>sdf</tl:city>
+        <tl:region>nnn</tl:region>
+        <tl:country>nn</tl:country>
+    </tl:address>
+    <tl:e-mail>adf."g.kjh".k_j.ddf-g1@bdf-g.df</tl:e-mail>
+</person>

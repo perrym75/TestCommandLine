@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.trustverse.ru/typelibrary" xmlns="http://www.trustverse.ru/typelibrary" elementFormDefault="qualified">
+    <xs:group name="fio">
+        <xs:sequence>
+            <xs:element name="firstname" type="human_name_type" />
+            <xs:element name="lastname" type="human_name_type" />
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="address_type">
+        <xs:sequence>
+            <xs:element name="street" type="xs:string" />
+            <xs:element name="city" type="geo_name_type" />
+            <xs:element name="region" type="geo_name_type" />
+            <xs:element name="country" type="geo_name_type" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="email_type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="254"/>
+            <xs:pattern value="((\w+(([-+._']\w+)|(\.&quot;([-+._']?\w+)*&quot;\.\w+))*)|(&quot;\w+([-+._']\w+)*&quot;))@(\w+([-.]\w+)*)\.(\w+([-.]\w+)*)" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="human_name_type">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\w+([-\s]\w+)*" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="geo_name_type">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\w+([-\s]\w+)*" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="person_type">
+        <xs:sequence>
+            <xs:group ref="fio" />
+            <xs:element name="address" type="address_type" minOccurs="1" maxOccurs="5" />
+            <xs:element name="e-mail" type="email_type" minOccurs="0" maxOccurs="5" />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
