@@ -3,13 +3,16 @@ package com.trustverse
 import java.lang.reflect.Modifier
 import java.util.regex.Pattern
 import kotlin.reflect.declaredMemberProperties
-import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 
 /**
  * Created by g.minkailov on 24.02.2016.
  */
 class ParamsConfig(private val args: Array<String>) {
+    companion object {
+        private val paramMatcher = Pattern.compile("-\\w+")
+    }
+
     var Debug: Boolean = false
     var Log: Boolean = false
 
@@ -18,10 +21,9 @@ class ParamsConfig(private val args: Array<String>) {
         while (i < args.size) {
             try {
                 var param = args[i]
+                var value = if (i + 1 < args.size) args[i + 1] else ""
                 if (isParam(param)) {
-                    var value = if (i + 1 < args.size)
-                                    if (isParam(args[i + 1])) "" else args[i + 1]
-                                else ""
+                    if (isParam(value)) value = ""
                     when (param) {
                         "-debug" -> {
                             try {
@@ -42,17 +44,18 @@ class ParamsConfig(private val args: Array<String>) {
                         else -> throw IllegalArgumentException("Invalid argument \"${args[i]}\".")
                     }
                 }
+
+                i++
             }
             catch (e: Exception) {
                 throw e
             }
-            i++
         }
     }
 
     fun isParam(str: String):Boolean {
-        val p = Pattern.compile("-\\w+")
-        val m = p.matcher(str)
+        val m = ParamsConfig.paramMatcher.matcher(str)
+
         return m.matches()
     }
 
