@@ -67,7 +67,6 @@ class ParamsConfig(private val args: Array<String>) {
 
     fun isParam(str: String):Boolean {
         val m = paramMatcher.matcher(str)
-
         return m.matches()
     }
 
