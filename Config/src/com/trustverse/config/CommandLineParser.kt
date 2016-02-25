@@ -7,7 +7,7 @@ class CommandLineParser(private val args: Array<String>,
                         params: List<ParamInfo>,
                         private var isParam: (str: String) -> Boolean = { x -> x.startsWith("-")}) {
     val UnnamedParams = ArrayList<String>()
-    val Params = HashMap<String, ParamInfo>()
+    private val Params = HashMap<String, ParamInfo>()
 
     init {
         Params.putAll(params.map({ x -> Pair(x.Name, x) }))
