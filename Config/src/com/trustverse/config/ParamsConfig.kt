@@ -17,15 +17,11 @@ class ParamsConfig(private val args: Array<String>) {
 
     init {
         val parser = CommandLineParser(args, listOf(
-                ParamInfo("-debug", true, Debug.javaClass),
-                ParamInfo("-trace", false),
-                ParamInfo("-log", true, Log.javaClass),
-                ParamInfo("-count", true, Count.javaClass)),
+                ParamInfo("-debug", true, Debug.javaClass, { x -> Debug = x as Boolean }),
+                ParamInfo("-trace", false/*, Trace.javaClass, { x -> Trace = x as Boolean }*/),
+                ParamInfo("-log", true, Log.javaClass, { x -> Log = x as String }),
+                ParamInfo("-count", true, Count.javaClass, { x -> Count = x as Int })),
                 { x -> x.startsWith("-") })
-        Debug = parser["-debug"]?.Value as Boolean? ?: false
-        Trace = parser["-trace"]?.Presents ?: false
-        Log = parser["-log"]?.Value as String? ?: ""
-        Count = parser["-count"]?.Value as Int? ?: 0
 
         UnnamedParams = parser.UnnamedParams
     }

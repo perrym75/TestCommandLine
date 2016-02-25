@@ -34,11 +34,10 @@ class CommandLineParser(private val args: Array<String>,
                         if (paramInfo.WithValue) {
                             try {
                                 if (isParam(value)) {
-                                    paramInfo.Value = null
                                     value = ""
                                     throw Exception()
                                 } else {
-                                    paramInfo.Value = value.toType(paramInfo.Type)
+                                    paramInfo.setter?.invoke(value.toType(paramInfo.Type))
                                     i++
                                 }
                             } catch (e: Exception) {
