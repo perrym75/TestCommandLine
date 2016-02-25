@@ -1,7 +1,6 @@
 package com.trustverse.config
 
 import java.lang.reflect.Modifier
-import java.util.*
 import kotlin.reflect.declaredMemberProperties
 import kotlin.reflect.jvm.javaField
 
@@ -20,7 +19,8 @@ class ParamsConfig(private val args: Array<String>) {
                 ParamInfo("-debug", true, "Boolean"),
                 ParamInfo("-trace", false),
                 ParamInfo("-log", true, "String"),
-                ParamInfo("-count", true, "Integer")))
+                ParamInfo("-count", true, "Integer")),
+                {x -> x.startsWith("-")})
         Debug = parser["-debug"]?.Value as Boolean? ?: false
         Trace = parser["-trace"]?.Presents ?: false
         Log = parser["-log"]?.Value as String? ?: ""
