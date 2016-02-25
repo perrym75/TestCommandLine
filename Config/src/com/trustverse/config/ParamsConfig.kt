@@ -29,7 +29,7 @@ class ParamsConfig(private val args: Array<String>) {
 
     fun print() {
         val cl = ParamsConfig::class
-        for (field in cl.declaredMemberProperties.filter({x -> x.javaField?.modifiers == Modifier.PRIVATE})) {
+        for (field in cl.declaredMemberProperties.filter {x -> x.javaField?.modifiers == Modifier.PRIVATE}) {
             println("${field.name} = ${field.get(this)}")
         }
 
