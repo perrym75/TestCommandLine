@@ -7,7 +7,6 @@ import java.util.regex.Pattern
 fun main(args: Array<String>) {
     try {
         val params = ParamsConfig(args)
-        params.processCommandLine()
         params.print()
 
         val si1 = SomeFactory.newInstance(SomeClass2::class.java)

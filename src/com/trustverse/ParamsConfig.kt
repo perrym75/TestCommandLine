@@ -1,34 +1,45 @@
 package com.trustverse
 
 import java.lang.reflect.Modifier
+import java.util.*
 import java.util.regex.Pattern
 import kotlin.reflect.declaredMemberProperties
-import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.javaField
 
 /**
  * Created by g.minkailov on 24.02.2016.
  */
 class ParamsConfig(private val args: Array<String>) {
+    companion object {
+        private val paramMatcher = Pattern.compile("-\\w+")
+    }
+
     var Debug: Boolean = false
     var Log: Boolean = false
+    var Trace: Boolean = false
 
-    fun processCommandLine() {
+    val UnnamedParams = ArrayList<String>()
+
+    init {
+        process()
+    }
+
+    private fun process() {
         var i = 0
         while (i < args.size) {
             try {
                 var param = args[i]
+                var value = if (i + 1 < args.size) args[i + 1] else ""
                 if (isParam(param)) {
-                    var value = if (i + 1 < args.size)
-                                    if (isParam(args[i + 1])) "" else args[i + 1]
-                                else ""
+                    if (isParam(value)) value = ""
+
                     when (param) {
                         "-debug" -> {
                             try {
                                 Debug = value.toBoolean()
                                 i++
                             } catch (e: Exception) {
-                                throw IllegalArgumentException("Invalid \"${args[i]}\" param value \"${value}\". Value must be either true, false, 1 or 0.")
+                                throw IllegalArgumentException("Invalid \"$param\" param value \"$value\". Value must be either true, false, 1 or 0.")
                             }
                         }
                         "-log" -> {
@@ -36,23 +47,26 @@ class ParamsConfig(private val args: Array<String>) {
                                 Log = value.toBoolean()
                                 i++
                             } catch (e: Exception) {
-                                throw IllegalArgumentException("Invalid \"${args[i]}\" param value \"${value}\". Value must be either true, false, 1 or 0.")
+                                throw IllegalArgumentException("Invalid \"$param\" param value \"$value\". Value must be either true, false, 1 or 0.")
                             }
                         }
-                        else -> throw IllegalArgumentException("Invalid argument \"${args[i]}\".")
+                        "-trace" -> Trace = true
+                        else -> throw IllegalArgumentException("Invalid argument \"$param\".")
                     }
+                } else {
+                    UnnamedParams.add(param)
                 }
+
+                i++
             }
             catch (e: Exception) {
                 throw e
             }
-            i++
         }
     }
 
     fun isParam(str: String):Boolean {
-        val p = Pattern.compile("-\\w+")
-        val m = p.matcher(str)
+        val m = paramMatcher.matcher(str)
         return m.matches()
     }
 
@@ -60,6 +74,10 @@ class ParamsConfig(private val args: Array<String>) {
         val cl = ParamsConfig::class
         for (field in cl.declaredMemberProperties.filter({x -> x.javaField?.modifiers == Modifier.PRIVATE})) {
             println("${field.name} = ${field.get(this)}")
+        }
+
+        for (value in UnnamedParams) {
+            println("Unnamed value = $value")
         }
     }
 }
@@ -70,6 +88,6 @@ fun String.toBoolean(): Boolean {
         "0" -> false
         "true" -> true
         "false" -> false
-        else -> throw IllegalArgumentException()
+        else -> throw NumberFormatException()
     }
 }
