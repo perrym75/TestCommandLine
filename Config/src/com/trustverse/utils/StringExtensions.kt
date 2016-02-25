@@ -13,3 +13,16 @@ fun String.toBoolean(): Boolean {
         else -> throw NumberFormatException()
     }
 }
+
+fun String.convertValue(type: String): Any {
+    when (type) {
+        "String" -> return this
+        "Boolean" -> return toBoolean()
+        "Byte" -> return toByte()
+        "Integer" -> return toInt()
+        "Long" -> return toLong()
+        "Float" -> return toFloat()
+        "Double" -> return toDouble()
+        else -> throw IllegalArgumentException("Invalid \"type\" argument value.")
+    }
+}

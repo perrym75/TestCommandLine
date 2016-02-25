@@ -1,7 +1,7 @@
 package com.trustverse.config
 
 import java.util.*
-import com.trustverse.utils.toBoolean
+import com.trustverse.utils.convertValue
 
 class CommandLineParser(private val args: Array<String>,
                         params: List<ParamInfo>,
@@ -38,7 +38,7 @@ class CommandLineParser(private val args: Array<String>,
                                     value = ""
                                     throw Exception()
                                 } else {
-                                    paramInfo.Value = convertValue(paramInfo.Type, value)
+                                    paramInfo.Value = value.convertValue(paramInfo.Type)
                                     i++
                                 }
                             } catch (e: Exception) {
@@ -58,15 +58,5 @@ class CommandLineParser(private val args: Array<String>,
                 throw e
             }
         }
-    }
-}
-
-private fun convertValue(type: String, value: String): Any {
-    when (type) {
-        "String" -> return value
-        "Boolean" -> return value.toBoolean()
-        "Integer" -> return value.toInt()
-        "Double" -> return value.toDouble()
-        else -> throw IllegalArgumentException("Invalid \"type\" argument value.")
     }
 }
