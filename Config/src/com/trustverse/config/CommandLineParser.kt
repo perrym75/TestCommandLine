@@ -43,6 +43,8 @@ class CommandLineParser(private val args: Array<String>,
                             } catch (e: Exception) {
                                 throw IllegalArgumentException("Invalid \"$param\" param value \"$value\". Value must be of ${paramInfo.Type} type.")
                             }
+                        } else {
+                            paramInfo.setter?.invoke(Any())
                         }
                     } else {
                         throw IllegalArgumentException("Unknown parameter \"$param\" specified.")

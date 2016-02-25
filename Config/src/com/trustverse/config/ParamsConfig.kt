@@ -18,7 +18,7 @@ class ParamsConfig(private val args: Array<String>) {
     init {
         val parser = CommandLineParser(args, listOf(
                 ParamInfo("-debug", true, Debug.javaClass, { x -> Debug = x as Boolean }),
-                ParamInfo("-trace", false/*, Trace.javaClass, { x -> Trace = x as Boolean }*/),
+                ParamInfo("-trace", false, Trace.javaClass, { x -> Trace = true }),
                 ParamInfo("-log", true, Log.javaClass, { x -> Log = x as String }),
                 ParamInfo("-count", true, Count.javaClass, { x -> Count = x as Int })),
                 { x -> x.startsWith("-") })
