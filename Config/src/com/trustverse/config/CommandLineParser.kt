@@ -1,7 +1,7 @@
 package com.trustverse.config
 
 import java.util.*
-import com.trustverse.utils.convertValue
+import com.trustverse.utils.toType
 
 class CommandLineParser(private val args: Array<String>,
                         params: List<ParamInfo>,
@@ -38,7 +38,7 @@ class CommandLineParser(private val args: Array<String>,
                                     value = ""
                                     throw Exception()
                                 } else {
-                                    paramInfo.Value = value.convertValue(paramInfo.Type)
+                                    paramInfo.Value = value.toType(paramInfo.Type)
                                     i++
                                 }
                             } catch (e: Exception) {

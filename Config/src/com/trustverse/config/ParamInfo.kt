@@ -4,7 +4,7 @@ package com.trustverse.config
  * Created by g.minkailov on 25.02.2016.
  */
 
-class ParamInfo(val Name: String, val WithValue: Boolean, var Type: String = "", var Value: Any? = null) {
+class ParamInfo(val Name: String, val WithValue: Boolean, var Type: Class<*> = Any::class.java, var Value: Any? = null) {
     var Presents: Boolean = false
     internal set
 
