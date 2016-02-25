@@ -1,7 +1,7 @@
 package com.trustverse.factoryconsumer
 
 import com.classfactory.*
-import com.trustverse.ParamsConfig
+import com.trustverse.config.ParamsConfig
 import java.util.regex.Pattern
 
 fun main(args: Array<String>) {
