@@ -1,19 +1,23 @@
 package com.trustverse.config
 
 import java.util.*
-import java.util.regex.Pattern
 import com.trustverse.utils.toBoolean
 
 class CommandLineParser(private val args: Array<String>,
-                        val Params: List<ParamInfo>,
+                        params: List<ParamInfo>,
                         private var isParam: (str: String) -> Boolean = { x -> x.startsWith("-")}) {
     val UnnamedParams = ArrayList<String>()
+    val Params = HashMap<String, ParamInfo>()
 
     init {
+        Params.putAll(params.map({ x -> Pair(x.Name, x) }))
         process()
     }
 
-    operator fun get(param: String): ParamInfo? = Params.find({ x -> x.Name.equals(param) && x.Presents })
+    operator fun get(param: String): ParamInfo? {
+        val paramInfo = Params[param]
+        return if (paramInfo != null && paramInfo.Presents) paramInfo else null
+    }
 
     private fun process() {
         var i = 0
@@ -22,14 +26,14 @@ class CommandLineParser(private val args: Array<String>,
                 var param = args[i]
                 var value = if (i + 1 < args.size) args[i + 1] else ""
 
-                if (isParam?.invoke(param) ?: true) {
-                    val paramInfo = Params.find({ x -> x.Name.equals(param) })
+                if (isParam(param)) {
+                    val paramInfo = Params[param]
                     if (paramInfo != null) {
                         paramInfo.Presents = true
 
                         if (paramInfo.WithValue) {
                             try {
-                                if (isParam?.invoke(value) ?: true) {
+                                if (isParam(value)) {
                                     paramInfo.Value = null
                                     value = ""
                                     throw Exception()
@@ -38,7 +42,7 @@ class CommandLineParser(private val args: Array<String>,
                                     i++
                                 }
                             } catch (e: Exception) {
-                                throw IllegalArgumentException("Invalid \"$param\" param value \"$value\". Value must be of type ${paramInfo.Type}.")
+                                throw IllegalArgumentException("Invalid \"$param\" param value \"$value\". Value must be of ${paramInfo.Type} type.")
                             }
                         }
                     } else {

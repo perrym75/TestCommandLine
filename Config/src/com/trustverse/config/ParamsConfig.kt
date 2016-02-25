@@ -15,12 +15,12 @@ class ParamsConfig(private val args: Array<String>) {
     val UnnamedParams: List<String>
 
     init {
-        val parser = CommandLineParser(args, arrayListOf(
+        val parser = CommandLineParser(args, listOf(
                 ParamInfo("-debug", true, "Boolean"),
                 ParamInfo("-trace", false),
                 ParamInfo("-log", true, "String"),
                 ParamInfo("-count", true, "Integer")),
-                {x -> x.startsWith("-")})
+                { x -> x.startsWith("-") })
         Debug = parser["-debug"]?.Value as Boolean? ?: false
         Trace = parser["-trace"]?.Presents ?: false
         Log = parser["-log"]?.Value as String? ?: ""
