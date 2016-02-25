@@ -1,7 +1,6 @@
 package com.trustverse.config
 
 import java.lang.reflect.Modifier
-import kotlin.reflect.KCallable
 import kotlin.reflect.declaredMemberProperties
 import kotlin.reflect.jvm.javaField
 
