@@ -1,5 +1,5 @@
 /**
- * Created by g.minkailov on 25.02.2016.
+ * Created on 25.02.2016.
  * @author Goussein Minkailov
  */
 

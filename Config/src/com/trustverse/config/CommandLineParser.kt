@@ -1,5 +1,5 @@
 /**
- * Created by g.minkailov on 25.02.2016.
+ * Created on 25.02.2016.
  * @author Goussein Minkailov
  */
 
@@ -10,8 +10,8 @@ import com.trustverse.utils.toType
 
 /**
  * Parses command line arguments
- * @param params List of ParamInfo values, describing command line params that can be parsed, their types and values
  * @param args Collection of command line arguments
+ * @param params List of ParamInfo values, describing command line params that can be parsed, their types and values
  * @param isParam Lambda used to determine if command line argument is a parameter
  * @property UnnamedParams Collection of command line arguments that are not either parameters or parameter values
  */
@@ -58,14 +58,14 @@ class CommandLineParser(private val args: Array<String>,
                                     value = ""
                                     throw Exception()
                                 } else {
-                                    paramInfo.setter?.invoke(value.toType(paramInfo.Type))
+                                    paramInfo.valueHandler?.invoke(value.toType(paramInfo.Type))
                                     i++
                                 }
                             } catch (e: Exception) {
                                 throw IllegalArgumentException("Invalid \"$param\" param value \"$value\". Value must be of ${paramInfo.Type} type.")
                             }
                         } else {
-                            paramInfo.setter?.invoke(Any())
+                            paramInfo.valueHandler?.invoke(Any())
                         }
                     } else {
                         throw IllegalArgumentException("Unknown parameter \"$param\" specified.")
