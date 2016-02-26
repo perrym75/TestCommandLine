@@ -1,6 +1,5 @@
 package com.trustverse.factoryconsumer
 
-import com.classfactory.*
 import com.trustverse.config.ParamsConfig
 import java.util.regex.Pattern
 
@@ -9,13 +8,6 @@ fun main(args: Array<String>) {
         val params = ParamsConfig(args)
         params.print()
 
-        val si1 = SomeFactory.newInstance(SomeClass2::class.java)
-        si1.f()
-        val s = test1()
-        test(s ?: si1)//when (s) {null -> si1 else -> s})
-        val si2: SomeInterface? = SomeFactory.newInstance(SomeClass1::class.java)
-        val si3 = si2?.f()
-        si3?.f()
         val a = intArrayOf(1, 2, 3, 4)
         println(a.filter({x -> x % 2 == 0}))
 
@@ -35,12 +27,4 @@ fun main(args: Array<String>) {
     } catch (e: Exception) {
         println(e.message)
     }
-}
-
-fun test(cls: SomeInterface) {
-    cls.f()
-}
-
-fun test1(): SomeInterface? {
-    return null
 }

@@ -12,7 +12,7 @@ package com.trustverse.config
  * @param Type Type of command line parameter
  * @param valueHandler Lambda used to handle parsed parameter value
  */
-class ParamInfo(val Name: String, val WithValue: Boolean, val Type: Class<*> = Any::class.java,
+class ParamInfo(val Name: String, val WithValue: Boolean = false, val Type: Class<*> = Any::class.java,
                 internal val valueHandler: ((value: Any) -> Unit)? = null) {
     var Presents: Boolean = false
     internal set
