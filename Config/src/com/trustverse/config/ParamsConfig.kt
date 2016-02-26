@@ -1,12 +1,14 @@
+/**
+ * Created by g.minkailov on 24.02.2016.
+ * @author Goussein Minkailov
+ */
+
 package com.trustverse.config
 
 import java.lang.reflect.Modifier
 import kotlin.reflect.declaredMemberProperties
 import kotlin.reflect.jvm.javaField
 
-/**
- * Created by g.minkailov on 24.02.2016.
- */
 class ParamsConfig(private val args: Array<String>) {
     var Debug: Boolean = false
     var Log: String = ""

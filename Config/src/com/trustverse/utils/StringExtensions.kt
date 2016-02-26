@@ -1,11 +1,16 @@
+/**
+ * Created by g.minkailov on 25.02.2016.
+ * @author Goussein Minkailov
+ */
+
 package com.trustverse.utils
 
 import kotlin.reflect.KClass
 
 /**
- * Created by g.minkailov on 25.02.2016.
+ * Converts String representation of boolean to Boolean
+ * @return Boolean value as a result of string conversion
  */
-
 fun String.toBoolean(): Boolean {
     return when (this) {
         "1" -> true
@@ -16,6 +21,12 @@ fun String.toBoolean(): Boolean {
     }
 }
 
+/**
+ * Converts String representation to specified type
+ * @param type Name of type to convert into
+ * @return Result of type conversion
+ * @throws IllegalArgumentException
+ */
 fun String.toType(type: String): Any {
     when (type) {
         "String" -> return this
@@ -29,6 +40,12 @@ fun String.toType(type: String): Any {
     }
 }
 
+/**
+ * Converts String representation to specified type
+ * @param type Type to convert into
+ * @return Result of type conversion
+ * @throws IllegalArgumentException
+ */
 fun String.toType(type: Class<*>): Any {
     when (type) {
         String::class.java -> return this
@@ -42,7 +59,12 @@ fun String.toType(type: Class<*>): Any {
     }
 }
 
-
+/**
+ * Converts String representation to specified type
+ * @param type type to convert into
+ * @return Result of type conversion
+ * @throws IllegalArgumentException
+ */
 fun String.toType(type: KClass<*>): Any {
     when (type) {
         String::class -> return this

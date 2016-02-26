@@ -1,10 +1,12 @@
-package com.trustverse.config
-
 /**
  * Created by g.minkailov on 25.02.2016.
+ * @author Goussein Minkailov
  */
 
-class ParamInfo(val Name: String, val WithValue: Boolean, val Type: Class<*> = Any::class.java, internal val setter: ((value: Any) -> Unit)? = null) {
+package com.trustverse.config
+
+class ParamInfo(val Name: String, val WithValue: Boolean, val Type: Class<*> = Any::class.java,
+                internal val setter: ((value: Any) -> Unit)? = null) {
     var Presents: Boolean = false
     internal set
 
