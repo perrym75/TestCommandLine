@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ClassFactory/ClassFactory.iml" filepath="$PROJECT_DIR$/ClassFactory/ClassFactory.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Config/Config.iml" filepath="$PROJECT_DIR$/Config/Config.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestCommandLine.iml" filepath="$PROJECT_DIR$/TestCommandLine.iml" />
     </modules>
   </component>

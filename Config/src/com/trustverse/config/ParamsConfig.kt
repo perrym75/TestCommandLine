@@ -1,7 +1,7 @@
 package com.trustverse.config
 
 import java.lang.reflect.Modifier
-import java.util.*
+import kotlin.reflect.KCallable
 import kotlin.reflect.declaredMemberProperties
 import kotlin.reflect.jvm.javaField
 
@@ -9,18 +9,19 @@ import kotlin.reflect.jvm.javaField
  * Created by g.minkailov on 24.02.2016.
  */
 class ParamsConfig(private val args: Array<String>) {
-    var Debug: Boolean
-    var Log: String
-    var Trace: Boolean
-    var Count: Int
+    var Debug: Boolean = false
+    var Log: String = ""
+    var Trace: Boolean = false
+    var Count: Int = 0
     val UnnamedParams: List<String>
 
     init {
-        val parser = CommandLineParser(args, arrayListOf(
-                ParamInfo("-debug", true, "Boolean"),
+        val parser = CommandLineParser(args, listOf(
+                ParamInfo("-debug", true, Debug.javaClass),
                 ParamInfo("-trace", false),
-                ParamInfo("-log", true, "String"),
-                ParamInfo("-count", true, "Integer")))
+                ParamInfo("-log", true, Log.javaClass),
+                ParamInfo("-count", true, Count.javaClass)),
+                { x -> x.startsWith("-") })
         Debug = parser["-debug"]?.Value as Boolean? ?: false
         Trace = parser["-trace"]?.Presents ?: false
         Log = parser["-log"]?.Value as String? ?: ""
