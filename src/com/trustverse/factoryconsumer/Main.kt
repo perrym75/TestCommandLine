@@ -8,9 +8,6 @@ fun main(args: Array<String>) {
         val params = ParamsConfig(args)
         params.print()
 
-        val a = intArrayOf(1, 2, 3, 4)
-        println(a.filter({x -> x % 2 == 0}))
-
         val str = "(?<local>(\\w+(([-+._']\\w+)|(\\.\"([-+._']?\\w+)*\"\\.\\w+))*)|([\"]\\w+([-+._']\\w+)*[\"]))@(?<domain>(?<domain1>\\w+([-.]\\w+)*)[.](?<domain2>\\w+([-.]\\w+)*))"
         val p = Pattern.compile(str)
         val m = p.matcher("\"adf.g.kjh.k_j.ddf-g1\"@bdf-g.sdf.df")

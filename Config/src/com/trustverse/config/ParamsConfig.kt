@@ -5,11 +5,12 @@
 
 package com.trustverse.config
 
-import java.lang.reflect.Modifier
-import kotlin.reflect.declaredMemberProperties
-import kotlin.reflect.jvm.javaField
+import kotlin.reflect.KClass
+import kotlin.reflect.KProperty1
+import kotlin.reflect.KVisibility
+import kotlin.reflect.full.declaredMemberProperties
 
-class ParamsConfig(private val args: Array<String>) {
+class ParamsConfig(args: Array<String>) {
     var Debug: Boolean = false
     var Log: String = ""
     var Trace: Boolean = false
@@ -27,15 +28,10 @@ class ParamsConfig(private val args: Array<String>) {
         UnnamedParams = parser.UnnamedParams
     }
 
-
     fun print() {
         val cl = ParamsConfig::class
-        for (field in cl.declaredMemberProperties.filter {x -> x.javaField?.modifiers == Modifier.PRIVATE}) {
-            println("${field.name} = ${field.get(this)}")
-        }
-
-        for (value in UnnamedParams) {
-            println("Unnamed value = $value")
+        cl.declaredMemberProperties.filter {it.visibility != KVisibility.PRIVATE}.forEach {
+            println("${it.name} = ${it.get(this)}")
         }
     }
 }
